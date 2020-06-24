@@ -8,25 +8,15 @@ words = ["diagram", "computer", "zoo", "penguin", "lobster", "ground", "racecar"
 #Randomly choose a word
 x = random.randint(len(words));
 
-#position of the word in the array 
-#print(x);
-
-#the word in the array
-#print(words[x]);
-
 #print the number of blanks in the word
 guess_word = words[x];
 
 #breakup word into letters to be guessed 
 letters = list(guess_word);
 
-#print all letters in the word
-#print(letters);
-
 cur_word = "";
 for j in range (0, len(guess_word)):
-    cur_word = cur_word + "_"
-#print("current", cur_word)
+    cur_word = cur_word + "_";
 
 #Guesses 
 guesses = 6; 
@@ -39,7 +29,7 @@ guessed_letters = [];
 for i in range (0, len(cur_word)):
     print (cur_word[i], end = " ");
     
-print("")
+print("");
 print("(" , letters_left, "Letters to guess - ", guesses, "wrong guesses left )");
 
  
@@ -66,16 +56,12 @@ def checkCorrect(letter):
     for i in range (0, len(guess_word)):
         if guess_word[i] == letter:
             #define cur as a global variable -> thanks stack overflow
-            global cur_word
-
+            global cur_word;
             cur_word = updateWord(letter, i);
-            
             #define ll as a global variable -> thanks stack overflow
             global letters_left;
             letters_left = letters_left - 1;
-            print("Index", i)
-            found = True
-            
+            found = True;
     return found;
     
 
@@ -83,21 +69,20 @@ def checkCorrect(letter):
 while guesses > 0 and letters_left > 0:
     validGuess = False;
     while not validGuess: 
-        char = input("Please enter a guess: ")
+        char = input("Please enter a guess: ");
+        char = char.lower();
         
-        #Enter a letter checking
+        #Letter checking
         if char.isalpha():
             if len(char) == 1: 
                 if(not previousGuess(char)):
-                    #print(previousGuess(char))
                     if(not checkCorrect(char)):
                         guesses = guesses - 1;
                     guessed_letters.append(char);
-                    #print("letters guessed:", guessed_letters)
                     validGuess = True;
                     
                 else:
-                    print("Please guess a letter you haven't guessed yet");
+                    print("Please guess a letter you haven't already tried");
             else:
                 print("Please only enter a single character");
         else: 
@@ -105,7 +90,12 @@ while guesses > 0 and letters_left > 0:
     
     for i in range (0, len(cur_word)):
         print (cur_word[i], end = " ");
-    print("")
+    print("");
     print("(" , letters_left, "Letters to guess - ", guesses, "wrong guesses left )");
-                 
+
+if guesses == 0: 
+    print("The word was", words[x])
+    print("GAME OVER - TRY AGAIN");
+else: 
+    print("YOU WIN - CONGRATULATIONS!");          
     
